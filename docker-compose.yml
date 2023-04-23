@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  default:
+    name: ${APP_NAME}
+
+services:
+  cache:
+    container_name: ${APP_NAME}-redis
+    image: redis:alpine
+
+  directus:
+    container_name: ${APP_NAME}-directus
+    image: directus/directus:latest
+    ports:
+      - 8055:8055
+    volumes:
+      - ./uploads:/directus/uploads
+    depends_on:
+      - cache
+    env_file:
+      - .env
+    restart: unless-stopped
