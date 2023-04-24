@@ -1,2 +1,6 @@
 .env
 node_modules
+
+## directus
+./directus/package.json
+./directus/package-lock.json

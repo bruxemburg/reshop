@@ -1,11 +1,12 @@
 SET check_function_bodies = false;
 CREATE TABLE public.categories (
+    date_created timestamp with time zone,
+    date_updated timestamp with time zone,
     id integer NOT NULL,
     sort integer,
     user_created uuid,
-    date_created timestamp with time zone,
     user_updated uuid,
-    date_updated timestamp with time zone
+    name character varying(255) DEFAULT NULL::character varying
 );
 CREATE SEQUENCE public.categories_id_seq
     AS integer
@@ -376,14 +377,13 @@ CREATE SEQUENCE public.directus_webhooks_id_seq
     CACHE 1;
 ALTER SEQUENCE public.directus_webhooks_id_seq OWNED BY public.directus_webhooks.id;
 CREATE TABLE public.order_lines (
-    id integer NOT NULL,
-    sort integer,
-    user_created uuid,
     date_created timestamp with time zone,
-    user_updated uuid,
     date_updated timestamp with time zone,
+    id integer NOT NULL,
     order_id integer,
-    product_id integer
+    product_id integer,
+    number_of_products integer DEFAULT 1 NOT NULL,
+    status character varying(255)
 );
 CREATE SEQUENCE public.order_lines_id_seq
     AS integer
@@ -394,12 +394,10 @@ CREATE SEQUENCE public.order_lines_id_seq
     CACHE 1;
 ALTER SEQUENCE public.order_lines_id_seq OWNED BY public.order_lines.id;
 CREATE TABLE public.orders (
-    id integer NOT NULL,
-    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
-    user_created uuid,
     date_created timestamp with time zone,
-    user_updated uuid,
     date_updated timestamp with time zone,
+    id integer NOT NULL,
+    status character varying(255) DEFAULT NULL::character varying NOT NULL,
     user_id integer
 );
 CREATE SEQUENCE public.orders_id_seq
@@ -411,14 +409,15 @@ CREATE SEQUENCE public.orders_id_seq
     CACHE 1;
 ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 CREATE TABLE public.products (
-    id integer NOT NULL,
-    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
-    sort integer,
-    user_created uuid,
+    category_id integer,
     date_created timestamp with time zone,
-    user_updated uuid,
     date_updated timestamp with time zone,
-    category_id integer
+    id integer NOT NULL,
+    sort integer,
+    status character varying(255) DEFAULT 'hidden'::character varying,
+    name character varying(255),
+    description text,
+    price real
 );
 CREATE SEQUENCE public.products_id_seq
     AS integer
@@ -429,14 +428,14 @@ CREATE SEQUENCE public.products_id_seq
     CACHE 1;
 ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 CREATE TABLE public.reviews (
-    id integer NOT NULL,
-    sort integer,
-    user_created uuid,
     date_created timestamp with time zone,
-    user_updated uuid,
     date_updated timestamp with time zone,
-    product_id integer,
-    user_id integer
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    sort integer,
+    user_id integer NOT NULL,
+    comment text,
+    rating integer
 );
 CREATE SEQUENCE public.reviews_id_seq
     AS integer
@@ -447,12 +446,13 @@ CREATE SEQUENCE public.reviews_id_seq
     CACHE 1;
 ALTER SEQUENCE public.reviews_id_seq OWNED BY public.reviews.id;
 CREATE TABLE public.users (
-    id integer NOT NULL,
-    user_created uuid,
     date_created timestamp with time zone,
-    user_updated uuid,
     date_updated timestamp with time zone,
-    name character varying(255)
+    id integer NOT NULL,
+    full_name character varying(255) DEFAULT NULL::character varying,
+    email character varying(255) DEFAULT NULL::character varying,
+    role character varying(255) DEFAULT 'customer'::character varying NOT NULL,
+    auth0_id character varying(255)
 );
 CREATE SEQUENCE public.users_id_seq
     AS integer
@@ -542,6 +542,8 @@ ALTER TABLE ONLY public.products
 ALTER TABLE ONLY public.reviews
     ADD CONSTRAINT reviews_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
@@ -608,34 +610,14 @@ ALTER TABLE ONLY public.directus_shares
 ALTER TABLE ONLY public.directus_users
     ADD CONSTRAINT directus_users_role_foreign FOREIGN KEY (role) REFERENCES public.directus_roles(id) ON DELETE SET NULL;
 ALTER TABLE ONLY public.order_lines
-    ADD CONSTRAINT order_lines_order_id_foreign FOREIGN KEY (order_id) REFERENCES public.orders(id) ON DELETE SET NULL;
+    ADD CONSTRAINT order_lines_order_id_foreign FOREIGN KEY (order_id) REFERENCES public.orders(id);
 ALTER TABLE ONLY public.order_lines
-    ADD CONSTRAINT order_lines_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE SET NULL;
-ALTER TABLE ONLY public.order_lines
-    ADD CONSTRAINT order_lines_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.order_lines
-    ADD CONSTRAINT order_lines_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT orders_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
+    ADD CONSTRAINT order_lines_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id);
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT orders_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
 ALTER TABLE ONLY public.products
-    ADD CONSTRAINT products_category_id_foreign FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE SET NULL;
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT products_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT products_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
+    ADD CONSTRAINT products_category_id_foreign FOREIGN KEY (category_id) REFERENCES public.categories(id);
 ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT reviews_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE SET NULL;
+    ADD CONSTRAINT reviews_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id);
 ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT reviews_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT reviews_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
-ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT reviews_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_user_created_foreign FOREIGN KEY (user_created) REFERENCES public.directus_users(id);
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_user_updated_foreign FOREIGN KEY (user_updated) REFERENCES public.directus_users(id);
+    ADD CONSTRAINT reviews_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id);
