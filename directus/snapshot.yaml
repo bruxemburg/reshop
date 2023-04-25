@@ -1,5 +1,5 @@
 version: 1
-directus: 9.25.2
+directus: 9.26.0
 vendor: postgres
 collections:
   - collection: categories
@@ -607,7 +607,7 @@ fields:
       note: null
       options:
         filter: null
-        template: '{{id}}{{status}}'
+        template: '{{id}} {{status}}'
       readonly: false
       required: true
       sort: 2
@@ -646,7 +646,9 @@ fields:
       hidden: false
       interface: select-dropdown-m2o
       note: null
-      options: null
+      options:
+        enableCreate: false
+        template: '{{name}} ({{id}}) {{status}} - "{{description}}"'
       readonly: false
       required: true
       sort: 3
@@ -852,7 +854,11 @@ fields:
       hidden: false
       interface: list-o2m
       note: null
-      options: null
+      options:
+        enableSelect: false
+        template: >-
+          {{id}} - Product: {{product_id.name}} ({{product_id}}) | Number of
+          products: {{number_of_products}} | {{status}}
       readonly: false
       required: false
       sort: 4
@@ -943,7 +949,7 @@ fields:
       interface: select-dropdown-m2o
       note: null
       options:
-        template: '{{name}}'
+        template: '{{email}} ({{id}} | {{auth0_id}}) - {{role}}'
       readonly: false
       required: false
       sort: 2
@@ -982,7 +988,8 @@ fields:
       hidden: false
       interface: select-dropdown-m2o
       note: null
-      options: null
+      options:
+        template: '{{name}} ({{id}})'
       readonly: false
       required: false
       sort: 2
@@ -1538,7 +1545,9 @@ fields:
       hidden: false
       interface: select-dropdown-m2o
       note: null
-      options: null
+      options:
+        enableCreate: false
+        template: '{{name}} ({{id}}) - "{{description}}"'
       readonly: false
       required: true
       sort: 2
@@ -1556,7 +1565,7 @@ fields:
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -1665,7 +1674,8 @@ fields:
       interface: select-dropdown-m2o
       note: null
       options:
-        template: '{{name}}'
+        enableCreate: false
+        template: '{{email}} ({{id}} | {{auth0_id}}) - {{role}}'
       readonly: false
       required: true
       sort: 3
@@ -1683,7 +1693,7 @@ fields:
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false

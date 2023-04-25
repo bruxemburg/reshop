@@ -431,9 +431,9 @@ CREATE TABLE public.reviews (
     date_created timestamp with time zone,
     date_updated timestamp with time zone,
     id integer NOT NULL,
-    product_id integer NOT NULL,
+    product_id integer,
     sort integer,
-    user_id integer NOT NULL,
+    user_id integer,
     comment text,
     rating integer
 );
