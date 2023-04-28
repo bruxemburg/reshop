@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "e3stpavel",
+      "name": "e3stpavel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70956582?v=4",
+      "profile": "https://github.com/e3stpavel",
+      "contributions": [
+        "code",
+        "doc",
+        "bug",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "reshop",
+  "projectOwner": "bruxemburg"
+}
