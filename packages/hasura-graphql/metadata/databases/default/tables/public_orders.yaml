@@ -1,0 +1,13 @@
+table:
+  name: orders
+  schema: public
+object_relationships:
+  - name: directusUserByUserUpdated
+    using:
+      foreign_key_constraint_on: user_updated
+  - name: directus_user
+    using:
+      foreign_key_constraint_on: user_created
+  - name: userByUser
+    using:
+      foreign_key_constraint_on: user

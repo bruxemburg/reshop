@@ -19,3 +19,5 @@
 - "!include public_directus_shares.yaml"
 - "!include public_directus_users.yaml"
 - "!include public_directus_webhooks.yaml"
+- "!include public_orders.yaml"
+- "!include public_users.yaml"

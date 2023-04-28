@@ -83,3 +83,17 @@ array_relationships:
         table:
           name: directus_shares
           schema: public
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: user_created
+        table:
+          name: orders
+          schema: public
+  - name: ordersByUserUpdated
+    using:
+      foreign_key_constraint_on:
+        column: user_updated
+        table:
+          name: orders
+          schema: public

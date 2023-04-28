@@ -41,6 +41,7 @@ services:
     depends_on:
       - cache
       - postgres
+    # TODO: apply schema automatically
     environment:
       PUBLIC_URL: http://localhost:8055
       DB_CLIENT: pg
