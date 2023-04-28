@@ -1,3 +1,4 @@
+- "!include public_categories.yaml"
 - "!include public_directus_activity.yaml"
 - "!include public_directus_collections.yaml"
 - "!include public_directus_dashboards.yaml"
@@ -19,5 +20,8 @@
 - "!include public_directus_shares.yaml"
 - "!include public_directus_users.yaml"
 - "!include public_directus_webhooks.yaml"
+- "!include public_order_lines.yaml"
 - "!include public_orders.yaml"
+- "!include public_products.yaml"
+- "!include public_reviews.yaml"
 - "!include public_users.yaml"
