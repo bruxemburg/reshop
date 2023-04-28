@@ -13,3 +13,45 @@ array_relationships:
         table:
           name: order_lines
           schema: public
+insert_permissions:
+  - role: protected
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        status: pending-payment
+        user_id: x-hasura-User-Id
+      columns: []
+select_permissions:
+  - role: protected
+    permission:
+      columns:
+        - status
+        - id
+        - user_id
+        - date_created
+        - date_updated
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+update_permissions:
+  - role: protected
+    permission:
+      columns:
+        - status
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+delete_permissions:
+  - role: protected
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id

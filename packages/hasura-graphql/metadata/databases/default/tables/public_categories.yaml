@@ -16,3 +16,28 @@ array_relationships:
         table:
           name: products
           schema: public
+select_permissions:
+  - role: protected
+    permission:
+      columns:
+        - name
+        - id
+        - sort
+        - date_created
+        - date_updated
+        - user_created
+        - user_updated
+      filter: {}
+      allow_aggregations: true
+  - role: public
+    permission:
+      columns:
+        - name
+        - id
+        - sort
+        - date_created
+        - date_updated
+        - user_created
+        - user_updated
+      filter: {}
+      allow_aggregations: true

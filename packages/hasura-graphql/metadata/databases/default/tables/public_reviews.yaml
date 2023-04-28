@@ -8,3 +8,63 @@ object_relationships:
   - name: user
     using:
       foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: protected
+    permission:
+      check: {}
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+        - comment
+        - product_id
+        - rating
+select_permissions:
+  - role: protected
+    permission:
+      columns:
+        - id
+        - product_id
+        - rating
+        - sort
+        - user_id
+        - comment
+        - date_created
+        - date_updated
+      filter: {}
+      allow_aggregations: true
+  - role: public
+    permission:
+      columns:
+        - id
+        - product_id
+        - rating
+        - sort
+        - user_id
+        - comment
+        - date_created
+        - date_updated
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: protected
+    permission:
+      columns:
+        - comment
+        - rating
+      filter:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+      check:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+delete_permissions:
+  - role: protected
+    permission:
+      filter:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
