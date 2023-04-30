@@ -17,6 +17,15 @@
         "bug",
         "design"
       ]
+    },
+    {
+      "login": "eskozloi",
+      "name": "Esko Zloi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72350904?v=4",
+      "profile": "https://github.com/eskozloi",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
