@@ -1,7 +1,5 @@
 <img alt="Reshop thumbnail" src="https://user-images.githubusercontent.com/70956582/234014121-5b877eb2-dd82-4ce6-9fdd-73f5ba4d80da.png">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 <h1 align="center">Reshop</h3>
 
 <p align="center">
@@ -14,6 +12,12 @@
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#contributors"><strong>Contributors</strong></a>
 </p>
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Introduction
 
@@ -64,6 +68,7 @@ Bellow we describe the process of running the application locally.
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/e3stpavel"><img src="https://avatars.githubusercontent.com/u/70956582?v=4?s=100" width="100px;" alt="e3stpavel"/><br /><sub><b>e3stpavel</b></sub></a><br /><a href="https://github.com/bruxemburg/reshop/commits?author=e3stpavel" title="Code">💻</a> <a href="https://github.com/bruxemburg/reshop/commits?author=e3stpavel" title="Documentation">📖</a> <a href="https://github.com/bruxemburg/reshop/issues?q=author%3Ae3stpavel" title="Bug reports">🐛</a> <a href="#design-e3stpavel" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/eskozloi"><img src="https://avatars.githubusercontent.com/u/72350904?v=4?s=100" width="100px;" alt="Esko Zloi"/><br /><sub><b>Esko Zloi</b></sub></a><br /><a href="https://github.com/bruxemburg/reshop/commits?author=eskozloi" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
