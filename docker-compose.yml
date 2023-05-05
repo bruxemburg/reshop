@@ -53,6 +53,15 @@ services:
       - ./packages/directus-cms/.env
     restart: unless-stopped
 
+  astro:
+    container_name: astro-ui
+    build: ./packages/astro-ui
+    ports:
+      - 3000:3000
+    depends_on:
+     - hasura
+    restart: unless-stopped
+
 volumes:
   db-data:
 

@@ -1,0 +1,15 @@
+---
+import DefaultLayout from '~/layout/Default.astro'
+
+const { id } = Astro.params
+
+if (id === undefined)
+  Astro.redirect('/404')
+
+// find product by id
+console.log(id)
+---
+
+<DefaultLayout title="Product Details">
+  details
+</DefaultLayout>
