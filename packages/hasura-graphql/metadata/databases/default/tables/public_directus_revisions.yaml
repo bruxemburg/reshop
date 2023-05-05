@@ -1,0 +1,18 @@
+table:
+  name: directus_revisions
+  schema: public
+object_relationships:
+  - name: directus_activity
+    using:
+      foreign_key_constraint_on: activity
+  - name: directus_revision
+    using:
+      foreign_key_constraint_on: parent
+array_relationships:
+  - name: directus_revisions
+    using:
+      foreign_key_constraint_on:
+        column: parent
+        table:
+          name: directus_revisions
+          schema: public

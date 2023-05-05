@@ -45,14 +45,16 @@ Bellow we describe the process of running the application locally.
     + KEY=SECRET
     - KEY= 
     ```
+1. Do above step for each `package` under `packages/` directory
 
 ### Running
 1. `docker-compose up -d` - to run Directus and Redis Cache
+1. Go to Directus container CLI and use `npx directus schema apply --yes ./snapshots/[name].yaml` to apply some schema
 1. `hasura console` - to run Hasura locally
 1. For more follow [Hasura CLI guide](https://hasura.io/docs/latest/hasura-cli/commands/index/)
 
 ### Stopping
-1. `docker-compose down` - to stop Docker containers
+1. `docker-compose down` - to stop Docker containers use `--volumes` to wipe the database
 
 ## Features
 - :cloud: [Hasura Cloud](https://hasura.io/)

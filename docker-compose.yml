@@ -1,23 +1,60 @@
 version: '3'
 
-networks:
-  default:
-    name: ${APP_NAME}
-
 services:
+  postgres:
+    container_name: postgres-db
+    image: postgres:alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    restart: always
+
+  hasura:
+    container_name: hasura-graphql-engine
+    image: hasura/graphql-engine:latest.cli-migrations-v3
+    ports:
+      - 8080:8080
+    volumes:
+      - ./packages/hasura-graphql/metadata:/hasura-metadata
+      - ./packages/hasura-graphql/migrations:/hasura-migrations
+    depends_on:
+    - postgres
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
+      PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
+      HASURA_GRAPHQL_ADMIN_SECRET: xxx
+    restart: always
+
   cache:
-    container_name: ${APP_NAME}-redis
+    container_name: redis-cache
     image: redis:alpine
 
   directus:
-    container_name: ${APP_NAME}-directus
+    container_name: directus-cms
     image: directus/directus:latest
     ports:
       - 8055:8055
     volumes:
-      - ./uploads:/directus/uploads
+      - ./packages/directus-cms/uploads:/directus/uploads
+      - ./packages/directus-cms/snapshots:/directus/snapshots
     depends_on:
       - cache
+      - postgres
+    # TODO: apply schema automatically
+    environment:
+      PUBLIC_URL: http://localhost:8055
+      DB_CLIENT: pg
+      DB_PORT: 5432
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: redis
+      CACHE_REDIS: redis://cache:6379
     env_file:
-      - .env
+      - ./packages/directus-cms/.env
     restart: unless-stopped
+
+volumes:
+  db-data:
+
+networks:
+  default:

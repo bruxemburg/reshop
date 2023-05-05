@@ -1,0 +1,95 @@
+### The following file is the list of most used (imo) queries for the front-end usage
+
+# gets all categories and counts how many products belongs to this category
+query GetAllCategoriesAndProductsCount {
+  categories {
+    name
+    products_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+# retrieves all products under certain category and prints its name, price and total reviews count
+query GetAllProductsByCategory($categoryName: String!) {
+  products(where: {category: {name: {_eq: $categoryName}}}) {
+    name
+    price
+    reviews_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+# returns single product by id
+query GetProductById($productId: Int!) {
+  products(where: {id: {_eq: $productId}}) {
+    name
+    price
+    reviews_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+# returns all reviews for specific product and 
+#  printing is author name, rating, comment and dates updated/created
+query GetProductReviews($productId: Int!) {
+  reviews(where: {product_id: {_eq: $productId}}) {
+    user {
+      full_name
+    }
+    rating
+    comment
+    date_created
+    date_updated
+  }
+}
+
+# returns all delivered user orders and prints out
+# last date updated, order lines with product name, price and its category
+query GetDeliveredOrdersByUserId($userId: Int!) {
+  orders(where: {_and: {user_id: {_eq: $userId}, status: {_eq: "delivered"}}}) {
+    date_updated
+    order_lines {
+      number_of_products
+      product {
+        name
+        price
+        category {
+          name
+        }
+      }
+    }
+  }
+}
+
+# updates the product count in the cart or add product to the card
+mutation UpdateCart($orderId: Int!, $productId: Int!) {
+  insert_order_lines(
+    objects: {
+        number_of_products: 10, 
+        order_id: $orderId, 
+        product_id: $productId
+    }, 
+    on_conflict: {
+        constraint: order_lines_pkey, 
+        update_columns: number_of_products
+    }
+  ) {
+    affected_rows
+  }
+}
+
+# remove order line from the cart
+mutation RemoveOrderLineFromCart($orderId: Int!) {
+  delete_order_lines(where: {order_id: {_eq: $orderId}}) {
+    affected_rows
+  }
+}
