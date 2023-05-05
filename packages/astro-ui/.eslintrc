@@ -2,7 +2,8 @@
   "extends": [
     "@antfu/eslint-config-ts",
     "plugin:astro/recommended",
-    "plugin:astro/jsx-a11y-strict"
+    "plugin:astro/jsx-a11y-strict",
+    "prettier"
   ],
   "rules": {
     "astro/semi": ["error", "never"],

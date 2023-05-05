@@ -10,11 +10,11 @@ export default defineConfig({
 
   // https://docs.astro.build/en/guides/integrations-guide/node/
   adapter: node({
-    mode: 'standalone',
+    mode: 'standalone'
   }),
 
   integrations: [
     // https://unocss.dev/integrations/astro
-    unocss(),
-  ],
+    unocss()
+  ]
 })
