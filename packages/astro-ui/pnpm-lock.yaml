@@ -15,6 +15,9 @@ devDependencies:
   '@total-typescript/ts-reset':
     specifier: ^0.4.2
     version: 0.4.2
+  '@typescript-eslint/parser':
+    specifier: ^5.59.2
+    version: 5.59.2(eslint@8.39.0)(typescript@5.0.4)
   '@unocss/reset':
     specifier: ^0.51.8
     version: 0.51.8
