@@ -1,0 +1,20 @@
+---
+const { pathname } = Astro.url
+
+const breadcrumbs = pathname.split('/').filter(crumb => crumb !== '').map((crumb, index, arr) => {
+  const href = `/${arr.slice(0, index + 1).join('/')}/`
+  return { label: crumb, href }
+})
+---
+
+<nav class="flex justify-between" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center gap-4 list-none children:relative not-last:children:after:(absolute -right-2.5 content-['/']) last-children:text-gray-400">
+    {
+      breadcrumbs.map(({ label, href }) => (
+        <li>
+          <a href={ href }>{ label }</a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>

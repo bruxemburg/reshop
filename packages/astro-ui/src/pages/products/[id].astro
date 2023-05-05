@@ -1,15 +1,22 @@
 ---
 import DefaultLayout from '~/layout/Default.astro'
+import Breadcrumbs from '~/components/Breadcrumbs.astro'
 
 const { id } = Astro.params
 
-if (id === undefined)
-  Astro.redirect('/404')
+if (id === undefined) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  })
+  // Astro.redirect('/404')
+}
 
 // find product by id
 console.log(id)
 ---
 
 <DefaultLayout title="Product Details">
+  <Breadcrumbs />
   details
 </DefaultLayout>
