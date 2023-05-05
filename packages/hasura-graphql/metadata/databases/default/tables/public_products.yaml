@@ -1,0 +1,51 @@
+table:
+  name: products
+  schema: public
+object_relationships:
+  - name: category
+    using:
+      foreign_key_constraint_on: category_id
+array_relationships:
+  - name: order_lines
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: order_lines
+          schema: public
+  - name: reviews
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: reviews
+          schema: public
+select_permissions:
+  - role: protected
+    permission:
+      columns:
+        - name
+        - status
+        - category_id
+        - id
+        - sort
+        - price
+        - description
+        - date_created
+        - date_updated
+      filter: {}
+      allow_aggregations: true
+  - role: public
+    permission:
+      columns:
+        - name
+        - status
+        - category_id
+        - id
+        - sort
+        - price
+        - description
+        - date_created
+        - date_updated
+      filter: {}
+      allow_aggregations: true
