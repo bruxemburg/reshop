@@ -1,18 +1,24 @@
 ---
 const { pathname } = Astro.url
 
-const breadcrumbs = pathname.split('/').filter(crumb => crumb !== '').map((crumb, index, arr) => {
-  const href = `/${arr.slice(0, index + 1).join('/')}/`
-  return { label: crumb, href }
-})
+const breadcrumbs = [
+  { label: 'home', href: '/' },
+  ...pathname
+    .split('/')
+    .filter(breadcrumb => breadcrumb !== '')
+    .map((breadcrumb, i, array) => ({
+      label: breadcrumb,
+      href: `/${array.slice(0, i + 1).join('/')}`,
+    })),
+]
 ---
 
-<nav class="flex justify-between" aria-label="Breadcrumb">
-  <ol class="inline-flex items-center gap-4 list-none children:relative not-last:children:after:(absolute -right-2.5 content-['/']) last-children:text-gray-400">
+<nav class="py-6 flex justify-between" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center gap-4 list-none not-last:children:after:(content-['/'] absolute -right-2.5) last-children:text-gray-400">
     {
       breadcrumbs.map(({ label, href }) => (
-        <li>
-          <a href={ href }>{ label }</a>
+        <li class="relative first-letter:uppercase">
+          <a href={ href } class="hover:underline">{ label }</a>
         </li>
       ))
     }

@@ -47,6 +47,9 @@ export default defineConfig<Theme>({
 
       return `gap${axis === '' ? '' : `-${axis}`}-${v} ${rule}`
     }],
+
+    // wh-5 => w-5 h-5
+    [/^wh-(.+)$/, ([, v]) => `w-${v} h-${v}`],
   ],
   preflights: [
     // fixes text rendering and height on html level
