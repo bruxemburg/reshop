@@ -92,18 +92,18 @@ if (id === undefined) {
       <!-- Review -->
       <form class="mb-6">
         <Rating readonly={ false }>
-          <p class="ml-2 text-sm text-gray-500 dark:text-gray-400 after:(content-['*'] text-red-500 dark:text-red-400)">Rank the product</p>
+          <p class="ml-2 text-sm text-gray-500 dark:text-gray-400 after:(content-['_*'] text-red-500 dark:text-red-400)">Rank the product</p>
         </Rating>
 
-        <div class="py-2.5 px-4 mb-4 bg-light-100 rounded-lg border border-gray-200 dark:(bg-gray-800 border-gray-700)">
-          <label for="review" class="sr-only">Your review</label>
+        <div class="relative py-2.5 px-4 mb-4 bg-light-100 rounded-lg border border-gray-200 dark:(bg-gray-800 border-gray-700)">
           <textarea
             id="review"
             rows="6"
-            class="px-0 w-full text-sm text-gray-900 bg-transparent placeholder-gray-500 border-0 focus:ring-0 dark:(text-light-100 placeholder-gray-400 bg-gray-800)"
-            placeholder="Write a review..."
+            placeholder=" "
+            class="px-0 w-full text-sm text-gray-900 bg-transparent border-0 focus:ring-0 dark:(text-light-100 bg-gray-800) peer"
             required
           />
+          <label for="review" class="absolute inset-y-2.5 inset-x-4 peer-not-placeholder-shown:hidden text-sm text-gray-500 dark:text-gray-400 after:(content-['_*'] text-red-500 dark:text-red-400)">Write a review...</label>
         </div>
         <button type="submit" class="inline-flex items-center space-x-2 py-2.5 px-4 text-sm font-medium text-center text-light-100 bg-gray-900 rounded-lg focus:(ring-4 ring-gray-500) hover:bg-gray-800 dark:(bg-light-100 text-gray-900 hover:bg-light-200)">
           <span class="i-ph-chat-text text-xl" aria-hidden="true" />
