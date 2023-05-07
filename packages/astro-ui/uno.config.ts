@@ -52,30 +52,6 @@ export default defineConfig<Theme>({
     [/^wh-(.+)$/, ([, v]) => `w-${v} h-${v}`],
   ],
   preflights: [
-    // fixes text rendering and height on html level
-    {
-      getCSS: () => `
-        html {
-          font-synthesis: none;
-          text-rendering: optimizeLegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          min-height: calc(100% + env(safe-area-inset-top));
-        }
-      `,
-    },
-
-    // extra checks for scrollbar gutter
-    {
-      getCSS: () => `
-        @supports (scrollbar-gutter: stable) {
-          html {
-            scrollbar-gutter: stable;
-          }
-        }
-      `,
-    },
-
     // custom font family
     // https://github.com/orioncactus/pretendard/tree/main/packages/pretendard-std/docs/en#font-family
     {

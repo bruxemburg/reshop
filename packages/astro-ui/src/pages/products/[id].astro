@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '~/layout/Default.astro'
 import Breadcrumbs from '~/components/Breadcrumbs.astro'
+import Rating from '~/components/Rating.astro'
 import DT from '~/components/description-list/Term.astro'
 import DD from '~/components/description-list/Description.astro'
 
@@ -15,7 +16,6 @@ if (id === undefined) {
 }
 
 // find product by id
-console.log(id)
 ---
 
 <DefaultLayout title="Product Details">
@@ -37,14 +37,6 @@ console.log(id)
       </div>
     </div>
 
-    <!-- <article>
-      <div class="pr-4">
-        <footer>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Lastly updated at: <time datetime="2022-01-20 19:00">January 20, 2022</time></p>
-        </footer>
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-light-100">Hot Potatoes</h1>
-      </div>
-    </article> -->
     <section class="py-8 md:px-4 lg:py-8">
       <h2 class="mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-light-100">Apple iMac 25"</h2>
       <p class="mb-4 text-xl font-extrabold leading-none text-gray-900 md:text-2xl dark:text-light-100">$2999</p>
@@ -68,15 +60,12 @@ console.log(id)
       </dl>
       <dl>
         <DT>Rating</DT>
-        <dd class="flex flex-wrap items-center mb-5">
-          <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-          <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-          <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-          <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-          <span class="i-ph-star-fill text-xl text-gray-300 dark:text-gray-500" aria-hidden="true" />
-          <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400"><span class="font-bold text-gray-900">4.95</span> out of 5</p>
-          <span class="wh-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-          <a href="#reviews" class="text-sm font-medium text-gray-500 dark:text-gray-400 underline hover:(no-underline text-gray-900 dark:text-light-100)">73 reviews</a>
+        <dd>
+          <Rating value={ 4.95 }>
+            <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400"><span class="font-bold text-gray-900">4.95</span> out of 5</p>
+            <span class="wh-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+            <a href="#reviews" class="text-sm font-medium text-gray-500 dark:text-gray-400 underline hover:(no-underline text-gray-900 dark:text-light-100)">73 reviews</a>
+          </Rating>
         </dd>
       </dl>
 
@@ -102,10 +91,11 @@ console.log(id)
 
       <!-- Review -->
       <form class="mb-6">
-        <div class="py-2.5 px-4 mb-4 bg-light-100 rounded-lg border border-gray-200 dark:(bg-gray-800 border-gray-700)">
-          <label for="stars" class="sr-only">How much stars will you give to this product?</label>
-          <input id="stars" type="range" min="1" max="5" step="1" />
+        <Rating readonly={ false }>
+          <p class="ml-2 text-sm text-gray-500 dark:text-gray-400 after:(content-['*'] text-red-500 dark:text-red-400)">Rank the product</p>
+        </Rating>
 
+        <div class="py-2.5 px-4 mb-4 bg-light-100 rounded-lg border border-gray-200 dark:(bg-gray-800 border-gray-700)">
           <label for="review" class="sr-only">Your review</label>
           <textarea
             id="review"
@@ -124,14 +114,9 @@ console.log(id)
       <!-- List reviews -->
       <article class="p-6 mb-6 text-base bg-light-100 rounded-lg dark:bg-gray-900">
         <footer class="flex justify-between items-center mb-2">
-          <div class="flex flex-wrap items-center mb-5">
-            <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-            <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-            <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-            <span class="i-ph-star-fill text-xl text-yellow" aria-hidden="true" />
-            <span class="i-ph-star-fill text-xl text-gray-300 dark:text-gray-500" aria-hidden="true" />
+          <Rating value={ 4 }>
             <p class="ml-2 text-sm text-gray-500 dark:text-gray-400">Reviewed in the United Kingdom on <time datetime="2017-03-03 19:00">March 3, 2017</time></p>
-          </div>
+          </Rating>
         </footer>
         <div class="space-y-2">
           <p>
