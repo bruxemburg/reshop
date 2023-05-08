@@ -1,0 +1,2464 @@
+version: 1
+directus: 10.0.0
+vendor: postgres
+collections:
+  - collection: categories
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: categories
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 1
+      sort_field: sort
+      translations: null
+      unarchive_value: null
+    schema:
+      name: categories
+  - collection: order_lines
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: order_lines
+      color: null
+      display_template: null
+      group: orders
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: order_lines
+  - collection: orders
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: status
+      archive_value: archived
+      collapse: open
+      collection: orders
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: draft
+    schema:
+      name: orders
+  - collection: products
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: status
+      archive_value: archived
+      collapse: open
+      collection: products
+      color: null
+      display_template: null
+      group: categories
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 1
+      sort_field: sort
+      translations: null
+      unarchive_value: draft
+    schema:
+      name: products
+  - collection: products_files
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: products_files
+      color: null
+      display_template: null
+      group: null
+      hidden: true
+      icon: import_export
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: products_files
+  - collection: reviews
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: reviews
+      color: null
+      display_template: null
+      group: users
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 1
+      sort_field: sort
+      translations: null
+      unarchive_value: null
+    schema:
+      name: reviews
+  - collection: users
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: users
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: users
+fields:
+  - collection: categories
+    field: date_created
+    type: timestamp
+    meta:
+      collection: categories
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: categories
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: categories
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: categories
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: categories
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: categories
+    field: id
+    type: integer
+    meta:
+      collection: categories
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: categories
+      data_type: integer
+      default_value: nextval('categories_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: categories
+    field: name
+    type: string
+    meta:
+      collection: categories
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: label
+        placeholder: category_name_goes_here
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: categories
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: categories
+    field: products
+    type: alias
+    meta:
+      collection: categories
+      conditions: null
+      display: null
+      display_options: null
+      field: products
+      group: null
+      hidden: true
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: categories
+    field: sort
+    type: integer
+    meta:
+      collection: categories
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: categories
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: categories
+    field: user_created
+    type: uuid
+    meta:
+      collection: categories
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: categories
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: categories
+    field: user_updated
+    type: uuid
+    meta:
+      collection: categories
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 8
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: categories
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: order_lines
+    field: date_created
+    type: timestamp
+    meta:
+      collection: order_lines
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: order_lines
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: order_lines
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: order_lines
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: order_lines
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: order_lines
+    field: id
+    type: integer
+    meta:
+      collection: order_lines
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: order_lines
+      data_type: integer
+      default_value: nextval('order_lines_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: order_lines
+    field: number_of_products
+    type: integer
+    meta:
+      collection: order_lines
+      conditions: null
+      display: null
+      display_options: null
+      field: number_of_products
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: null
+        min: 1
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: number_of_products
+      table: order_lines
+      data_type: integer
+      default_value: 1
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: order_lines
+    field: order_id
+    type: integer
+    meta:
+      collection: order_lines
+      conditions: null
+      display: null
+      display_options: null
+      field: order_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        filter: null
+        template: '{{id}} {{status}}'
+      readonly: false
+      required: true
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: order_id
+      table: order_lines
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: orders
+      foreign_key_column: id
+  - collection: order_lines
+    field: product_id
+    type: integer
+    meta:
+      collection: order_lines
+      conditions: null
+      display: null
+      display_options: null
+      field: product_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{name}} ({{id}}) {{status}} - "{{description}}"'
+      readonly: false
+      required: true
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: product_id
+      table: order_lines
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: products
+      foreign_key_column: id
+  - collection: order_lines
+    field: status
+    type: string
+    meta:
+      collection: order_lines
+      conditions: null
+      display: null
+      display_options: null
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Pending shipment
+            value: pending-shipment
+          - text: Pending shipment - Fail
+            value: pending-shipment-fail
+          - text: In delivery
+            value: delivery
+          - text: In delivery -  Fail
+            value: delivery-fail
+          - text: Delivered
+            value: delivery-finished
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: order_lines
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orders
+    field: date_created
+    type: timestamp
+    meta:
+      collection: orders
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: orders
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orders
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: orders
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: orders
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orders
+    field: id
+    type: integer
+    meta:
+      collection: orders
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: orders
+      data_type: integer
+      default_value: nextval('orders_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orders
+    field: order_lines
+    type: alias
+    meta:
+      collection: orders
+      conditions: null
+      display: null
+      display_options: null
+      field: order_lines
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        enableSelect: false
+        template: >-
+          {{id}} - Product: {{product_id.name}} ({{product_id}}) | Number of
+          products: {{number_of_products}} | {{status}}
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: orders
+    field: status
+    type: string
+    meta:
+      collection: orders
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            foreground: '#FFFFFF'
+            background: var(--primary)
+          - text: $t:draft
+            value: draft
+            foreground: '#18222F'
+            background: '#D3DAE4'
+          - text: $t:archived
+            value: archived
+            foreground: '#FFFFFF'
+            background: var(--warning)
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Pending payment
+            value: pending-payment
+          - text: Pending payment - Fail
+            value: pending-payment-fail
+          - text: Pending shipment
+            value: pending-shipment
+          - text: Pending shipment - Fail
+            value: pending-shipment-fail
+          - text: In delivery
+            value: delivery
+          - text: Delivery Fail
+            value: delivery-fail
+          - text: Delivered
+            value: delivered
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: orders
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orders
+    field: user_id
+    type: integer
+    meta:
+      collection: orders
+      conditions: null
+      display: null
+      display_options: null
+      field: user_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{email}} ({{id}} | {{auth0_id}}) - {{role}}'
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: user_id
+      table: orders
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: users
+      foreign_key_column: id
+  - collection: products
+    field: category_id
+    type: integer
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: category_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{name}} ({{id}})'
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: category_id
+      table: products
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: categories
+      foreign_key_column: id
+  - collection: products
+    field: date_created
+    type: timestamp
+    meta:
+      collection: products
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 11
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: products
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: products
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 12
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: products
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: description
+    type: text
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options:
+        placeholder: product_description_goes_here
+        softLength: 1023
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: description
+      table: products
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: id
+    type: integer
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: products
+      data_type: integer
+      default_value: nextval('products_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: images
+    type: alias
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: images
+      group: null
+      hidden: false
+      interface: files
+      note: Images showcasing the product
+      options:
+        limit: 6
+        template: '{{directus_files_id.$thumbnail}}'
+      readonly: false
+      required: true
+      sort: 7
+      special:
+        - files
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: products
+    field: name
+    type: string
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: label
+        placeholder: product_name_goes_here
+      readonly: false
+      required: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: products
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: price
+    type: float
+    meta:
+      collection: products
+      conditions: null
+      display: raw
+      display_options: null
+      field: price
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: price_change
+        max: 8000
+        min: 0.01
+        placeholder: product_price_goes_here
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: price
+      table: products
+      data_type: real
+      default_value: null
+      max_length: null
+      numeric_precision: 24
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: reviews
+    type: alias
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: reviews
+      group: null
+      hidden: true
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: products
+    field: sort
+    type: integer
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: products
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: status
+    type: string
+    meta:
+      collection: products
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            foreground: '#FFFFFF'
+            background: var(--primary)
+          - text: $t:draft
+            value: draft
+            foreground: '#18222F'
+            background: '#D3DAE4'
+          - text: $t:archived
+            value: archived
+            foreground: '#FFFFFF'
+            background: var(--warning)
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Hidden
+            value: hidden
+          - text: Public
+            value: public
+        icon: visibility
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: status
+      table: products
+      data_type: character varying
+      default_value: published
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products
+    field: thumbnail
+    type: uuid
+    meta:
+      collection: products
+      conditions: null
+      display: null
+      display_options: null
+      field: thumbnail
+      group: null
+      hidden: false
+      interface: file-image
+      note: null
+      options: {}
+      readonly: false
+      required: true
+      sort: 6
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: thumbnail
+      table: products
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: products_files
+    field: directus_files_id
+    type: uuid
+    meta:
+      collection: products_files
+      conditions: null
+      display: null
+      display_options: null
+      field: directus_files_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: directus_files_id
+      table: products_files
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: products_files
+    field: id
+    type: integer
+    meta:
+      collection: products_files
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: products_files
+      data_type: integer
+      default_value: nextval('products_files_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: products_files
+    field: products_id
+    type: integer
+    meta:
+      collection: products_files
+      conditions: null
+      display: null
+      display_options: null
+      field: products_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: products_id
+      table: products_files
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: products
+      foreign_key_column: id
+  - collection: reviews
+    field: comment
+    type: text
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: comment
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options:
+        placeholder: review_comment_goes_here
+        softLength: 1023
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: comment
+      table: reviews
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: date_created
+    type: timestamp
+    meta:
+      collection: reviews
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: reviews
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: reviews
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 8
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: reviews
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: id
+    type: integer
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: reviews
+      data_type: integer
+      default_value: nextval('reviews_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: product_id
+    type: integer
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: product_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{name}} ({{id}}) - "{{description}}"'
+      readonly: false
+      required: true
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: product_id
+      table: reviews
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: products
+      foreign_key_column: id
+  - collection: reviews
+    field: rating
+    type: integer
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: rating
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: '1'
+            value: 1
+          - text: '2'
+            value: 2
+          - text: '3'
+            value: 3
+          - text: '4'
+            value: 4
+          - text: '5'
+            value: 5
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: rating
+      table: reviews
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: sort
+    type: integer
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: reviews
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: reviews
+    field: user_id
+    type: integer
+    meta:
+      collection: reviews
+      conditions: null
+      display: null
+      display_options: null
+      field: user_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{email}} ({{id}} | {{auth0_id}}) - {{role}}'
+      readonly: false
+      required: true
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: user_id
+      table: reviews
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: users
+      foreign_key_column: id
+  - collection: users
+    field: auth0_id
+    type: string
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: auth0_id
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: frame_person
+        placeholder: user_auth0_id
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: auth0_id
+      table: users
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: date_created
+    type: timestamp
+    meta:
+      collection: users
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 8
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: users
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: users
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 9
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: users
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: email
+    type: string
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: email
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: alternate_email
+        placeholder: user_email_goes_here
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: email
+      table: users
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: true
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: full_name
+    type: string
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: full_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: person
+        placeholder: user_full_name_goes_here
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: full_name
+      table: users
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: id
+    type: integer
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: users
+      data_type: integer
+      default_value: nextval('users_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: users
+    field: orders
+    type: alias
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: orders
+      group: null
+      hidden: true
+      interface: list-o2m
+      note: null
+      options:
+        template: '{{date_created}} ({{id}}) {{status}}'
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: users
+    field: reviews
+    type: alias
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: reviews
+      group: null
+      hidden: true
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: users
+    field: role
+    type: string
+    meta:
+      collection: users
+      conditions: null
+      display: null
+      display_options: null
+      field: role
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Customer
+            value: customer
+          - text: Seller
+            value: seller
+        icon: admin_panel_settings
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: role
+      table: users
+      data_type: character varying
+      default_value: customer
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+relations:
+  - collection: categories
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: categories
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: categories
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: categories_user_created_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: categories
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: categories
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: categories
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: categories_user_updated_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: order_lines
+    field: order_id
+    related_collection: orders
+    meta:
+      junction_field: null
+      many_collection: order_lines
+      many_field: order_id
+      one_allowed_collections: null
+      one_collection: orders
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: order_lines
+      sort_field: null
+    schema:
+      table: order_lines
+      column: order_id
+      foreign_key_table: orders
+      foreign_key_column: id
+      constraint_name: order_lines_order_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: order_lines
+    field: product_id
+    related_collection: products
+    meta:
+      junction_field: null
+      many_collection: order_lines
+      many_field: product_id
+      one_allowed_collections: null
+      one_collection: products
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: order_lines
+      column: product_id
+      foreign_key_table: products
+      foreign_key_column: id
+      constraint_name: order_lines_product_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: orders
+    field: user_id
+    related_collection: users
+    meta:
+      junction_field: null
+      many_collection: orders
+      many_field: user_id
+      one_allowed_collections: null
+      one_collection: users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: orders
+      sort_field: null
+    schema:
+      table: orders
+      column: user_id
+      foreign_key_table: users
+      foreign_key_column: id
+      constraint_name: orders_user_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: products
+    field: category_id
+    related_collection: categories
+    meta:
+      junction_field: null
+      many_collection: products
+      many_field: category_id
+      one_allowed_collections: null
+      one_collection: categories
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: products
+      sort_field: null
+    schema:
+      table: products
+      column: category_id
+      foreign_key_table: categories
+      foreign_key_column: id
+      constraint_name: products_category_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: products
+    field: thumbnail
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: products
+      many_field: thumbnail
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: products
+      column: thumbnail
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: products_thumbnail_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: products_files
+    field: directus_files_id
+    related_collection: directus_files
+    meta:
+      junction_field: products_id
+      many_collection: products_files
+      many_field: directus_files_id
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: products_files
+      column: directus_files_id
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: products_files_directus_files_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: products_files
+    field: products_id
+    related_collection: products
+    meta:
+      junction_field: directus_files_id
+      many_collection: products_files
+      many_field: products_id
+      one_allowed_collections: null
+      one_collection: products
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: images
+      sort_field: null
+    schema:
+      table: products_files
+      column: products_id
+      foreign_key_table: products
+      foreign_key_column: id
+      constraint_name: products_files_products_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: reviews
+    field: product_id
+    related_collection: products
+    meta:
+      junction_field: null
+      many_collection: reviews
+      many_field: product_id
+      one_allowed_collections: null
+      one_collection: products
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: reviews
+      sort_field: null
+    schema:
+      table: reviews
+      column: product_id
+      foreign_key_table: products
+      foreign_key_column: id
+      constraint_name: reviews_product_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: reviews
+    field: user_id
+    related_collection: users
+    meta:
+      junction_field: null
+      many_collection: reviews
+      many_field: user_id
+      one_allowed_collections: null
+      one_collection: users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: reviews
+      sort_field: null
+    schema:
+      table: reviews
+      column: user_id
+      foreign_key_table: users
+      foreign_key_column: id
+      constraint_name: reviews_user_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION

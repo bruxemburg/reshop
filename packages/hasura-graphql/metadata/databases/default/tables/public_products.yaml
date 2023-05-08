@@ -5,6 +5,9 @@ object_relationships:
   - name: category
     using:
       foreign_key_constraint_on: category_id
+  - name: directus_file
+    using:
+      foreign_key_constraint_on: thumbnail
 array_relationships:
   - name: order_lines
     using:
@@ -12,6 +15,13 @@ array_relationships:
         column: product_id
         table:
           name: order_lines
+          schema: public
+  - name: products_files
+    using:
+      foreign_key_constraint_on:
+        column: products_id
+        table:
+          name: products_files
           schema: public
   - name: reviews
     using:
@@ -33,6 +43,7 @@ select_permissions:
         - description
         - date_created
         - date_updated
+        - thumbnail
       filter: {}
       allow_aggregations: true
   - role: public
@@ -47,5 +58,6 @@ select_permissions:
         - description
         - date_created
         - date_updated
+        - thumbnail
       filter: {}
       allow_aggregations: true

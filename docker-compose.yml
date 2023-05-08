@@ -23,6 +23,7 @@ services:
     environment:
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
       PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
       HASURA_GRAPHQL_ADMIN_SECRET: xxx
     restart: always
 
