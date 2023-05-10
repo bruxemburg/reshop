@@ -23,6 +23,7 @@ services:
     environment:
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
       PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
       HASURA_GRAPHQL_ADMIN_SECRET: xxx
     restart: always
 
@@ -51,6 +52,15 @@ services:
       CACHE_REDIS: redis://cache:6379
     env_file:
       - ./packages/directus-cms/.env
+    restart: unless-stopped
+
+  astro:
+    container_name: astro-ui
+    build: ./packages/astro-ui
+    ports:
+      - 3000:3000
+    depends_on:
+     - hasura
     restart: unless-stopped
 
 volumes:
