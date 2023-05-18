@@ -45,7 +45,7 @@ services:
       - /bin/sh
       - -c
       - |
-        node /directus/cli.js bootstrap --skipAdminInit
+        node /directus/cli.js bootstrap --skipAdminInit &&
         node /directus/cli.js schema apply --yes /directus/snapshots/$(ls -Art /directus/snapshots/ | tail -n 1) &&
         node /directus/cli.js start
     environment:
@@ -104,15 +104,35 @@ services:
       timeout: 8s
       retries: 4
 
-  astro:
-    container_name: astro-ui
-    build: ./packages/astro-ui
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    depends_on:
-      hasura:
-        condition: service_healthy
+  # astro:
+  #   container_name: astro-ui
+  #   build: ./packages/astro-ui
+  #   ports:
+  #     - 3000:3000
+  #   restart: unless-stopped
+  #   depends_on:
+  #     hasura:
+  #       condition: service_healthy
+
+  # TODO: changge the way astro-ui works in the dev environment
+  # astro:
+  #   container_name: astro-ui
+  #   image: node:lts-alpine
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./packages/astro-ui:/astro-ui
+  #   command:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       cd /astro-ui &&
+  #       npm i &&
+  #       npm run dev
+  #   environment:
+  #     HOST: 0.0.0.0
+  #     PORT: 3000
+  #   restart: unless-stopped
 
 volumes:
   db-data:

@@ -17,5 +17,8 @@
       "patterns": ["class\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
     }
   },
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
   "unocss.root": "packages/astro-ui"
 }
