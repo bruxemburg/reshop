@@ -1,0 +1,12 @@
+SET check_function_bodies = false;
+INSERT INTO public.categories (date_created, date_updated, id, name, sort, user_created, user_updated) VALUES ('2023-05-08 06:34:32.5+00', NULL, 1, 'Electronics', NULL, '8ed52acc-6c3d-4a42-acac-fb9cc5cd25a3', NULL);
+INSERT INTO public.products (category_id, date_created, date_updated, description, id, name, price, sort, status, thumbnail) VALUES (1, '2023-05-08 06:34:32.51+00', '2023-05-08 09:05:13.879+00', 'Standard glass, 3.8GHz 8-core 10th-generation Intel Core i7 processor, Turbo Boost up to 5.0GHz, 16GB 2666MHz DDR4 memory, Radeon Pro 5500 XT with 8GB of GDDR6 memory, 256GB SSD storage, Gigabit Ethernet, Magic Mouse 2, Magic Keyboard - US.', 1, 'Apple iMac 25"', 2999.99, NULL, 'public', 'ae3900a9-e8e2-435d-ba56-519b102b4bf4');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (1, 1, '58d59031-51d9-40e5-89e4-60f2183f6b2c');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (2, 1, '488d02be-d34e-47b1-8ade-d6e203a25949');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (3, 1, '234267c5-37b6-4789-a892-5c70d79640b3');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (4, 1, '21293308-0354-4e14-85c9-de2fac092804');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (6, 1, '0af7c5b1-5839-4d58-8eff-178f2f6ff556');
+INSERT INTO public.products_files (id, products_id, directus_files_id) VALUES (5, NULL, 'ae3900a9-e8e2-435d-ba56-519b102b4bf4');
+SELECT pg_catalog.setval('public.categories_id_seq', 1, true);
+SELECT pg_catalog.setval('public.products_files_id_seq', 6, true);
+SELECT pg_catalog.setval('public.products_id_seq', 1, true);

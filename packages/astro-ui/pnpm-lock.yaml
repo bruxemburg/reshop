@@ -7,11 +7,17 @@ dependencies:
   astro:
     specifier: ^2.4.1
     version: 2.4.1
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   '@antfu/eslint-config':
     specifier: ^0.38.5
     version: 0.38.5(eslint@8.39.0)(typescript@5.0.4)
+  '@iconify-json/ph':
+    specifier: ^1.1.5
+    version: 1.1.5
   '@total-typescript/ts-reset':
     specifier: ^0.4.2
     version: 0.4.2
@@ -723,6 +729,12 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/ph@1.1.5:
+    resolution: {integrity: sha512-iLXq3nohfGge22gL2tZmQ2WHBKkKkIbGWrkuyC8arckS4PWaONyh4A+uDPtSek9QbYDvi9AE2+NxWkNZhANotA==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types@2.0.0:

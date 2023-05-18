@@ -50,10 +50,16 @@ Bellow we describe the process of running the application locally.
 ### Running
 1. `docker-compose up -d` - to run Directus and Redis Cache
 1. Go to Directus container CLI and use `npx directus schema apply --yes ./snapshots/[name].yaml` to apply some schema
+1. Before launching Hasura make sure you do:
+    1. Applied existing metadata: `hasura metadata apply`
+    1. Applied existing seeds: `hasura seed apply --file [seed_file]`
+    1. Or do everything at once by using `hasura deploy --with-seeds` 
 1. `hasura console` - to run Hasura locally
 1. For more follow [Hasura CLI guide](https://hasura.io/docs/latest/hasura-cli/commands/index/)
 
 ### Stopping
+1. Before make sure you've created Directus snapshot of your changes `npx directus schema snapshot --yes ./snapshots/[name].yaml`
+1. Make sure you've exported Directus metadata (such as file uploads etc.) by `hasura seed create directus_metadata_seed --from-table directus_presets --from-table directus_files --from-table directus_folders --from-table directus_settings`
 1. `docker-compose down` - to stop Docker containers use `--volumes` to wipe the database
 
 ## Features

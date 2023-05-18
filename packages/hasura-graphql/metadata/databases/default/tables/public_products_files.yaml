@@ -1,0 +1,19 @@
+table:
+  name: products_files
+  schema: public
+object_relationships:
+  - name: directus_file
+    using:
+      foreign_key_constraint_on: directus_files_id
+  - name: product
+    using:
+      foreign_key_constraint_on: products_id
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - id
+        - products_id
+        - directus_files_id
+      filter: {}
+      allow_aggregations: true

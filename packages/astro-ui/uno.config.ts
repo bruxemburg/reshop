@@ -45,34 +45,13 @@ export default defineConfig<Theme>({
         ? `${supports}l-${v} ${supports}t-${v}`
         : axis === 'x' ? `${supports}l-${v}` : `${supports}t-${v}`
 
-      return `gap-${axis}-${v} ${rule}`
+      return `gap${axis === '' ? '' : `-${axis}`}-${v} ${rule}`
     }],
+
+    // wh-5 => w-5 h-5
+    [/^wh-(.+)$/, ([, v]) => `w-${v} h-${v}`],
   ],
   preflights: [
-    // fixes text rendering and height on html level
-    {
-      getCSS: () => `
-        html {
-          font-synthesis: none;
-          text-rendering: optimizeLegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          min-height: calc(100% + env(safe-area-inset-top));
-        }
-      `,
-    },
-
-    // extra checks for scrollbar gutter
-    {
-      getCSS: () => `
-        @supports (scrollbar-gutter: stable) {
-          html {
-            scrollbar-gutter: stable;
-          }
-        }
-      `,
-    },
-
     // custom font family
     // https://github.com/orioncactus/pretendard/tree/main/packages/pretendard-std/docs/en#font-family
     {

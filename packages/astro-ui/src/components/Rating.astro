@@ -1,0 +1,42 @@
+---
+import { z } from 'zod'
+
+export interface Props {
+  value?: number
+  readonly?: boolean
+}
+
+const { readonly = true, value = 1 } = Astro.props
+
+let rating: number
+const schema = z.number().gt(0).lte(5)
+const result = schema.safeParse(value)
+
+if (!result.success)
+  rating = 1
+else
+  rating = result.data
+
+const id = crypto.randomUUID()
+---
+
+<div class="flex flex-wrap items-center mb-5">
+  <div class="flex-center text-xl" dir="rtl">
+    {
+      Array.from({ length: 5 }, (_, i) => i + 1).reverse().map(i => (
+        <input
+          type="radio"
+          id={ `rating-radio-${id}-${i}` }
+          name={ `stars-${id}` }
+          value={ i }
+          class="hidden peer"
+          disabled={ readonly }
+          checked={ Math.floor(rating) === i }
+          required={ i === 1 }
+        />
+        <label for={ `rating-radio-${id}-${i}`} class="i-ph-star-fill text-gray-300 dark:text-gray-500 peer-hover:text-yellow-500 peer-checked:text-yellow">{ i } stars</label>
+      ))
+    }
+  </div>
+  <slot />
+</div>

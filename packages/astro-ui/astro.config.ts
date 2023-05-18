@@ -15,6 +15,11 @@ export default defineConfig({
 
   integrations: [
     // https://unocss.dev/integrations/astro
-    unocss(),
+    unocss({
+      injectReset: '@unocss/reset/tailwind-compat.css',
+    }),
   ],
+
+  // https://docs.astro.build/en/reference/configuration-reference/#trailingslash
+  trailingSlash: 'never',
 })
