@@ -31,7 +31,10 @@ interface Image {
 }
 
 export async function fetchProductById(id: string) {
-  const { products_by_pk: product } = await useGraphQL<{ products_by_pk: Product | null }>(`
+  const { products_by_pk: product } = await useGraphQL<{
+    products_by_pk: Product | null
+  }>(
+    `
     query getProductById($id: Int!) {
       products_by_pk(id: $id) {
         id,
@@ -61,9 +64,71 @@ export async function fetchProductById(id: string) {
         thumbnail
       }
     }
-  `, {
-    id,
-  })
+  `,
+    {
+      id
+    }
+  )
 
   return product
+}
+
+export async function fetchProducts(limit: number, offset: number) {
+  const { products } = await useGraphQL<{ products: Product[] }>(
+    `
+    query getProducts($limit: Int!, $offset: Int!) {
+      products(limit: $limit, offset: $offset) {
+        id,
+        name,
+        price,
+        description,
+        date_created,
+        date_updated,
+        category {
+          id,
+          name,
+          date_created,
+          date_updated
+        },
+        reviews_aggregate {
+          aggregate {
+            count
+          }
+        },
+        products_files {
+          directus_file {
+            id,
+            description,
+            filename_download
+          }
+        },
+        thumbnail
+      }
+    }
+  `,
+    {
+      limit,
+      offset
+    }
+  )
+
+  return products
+}
+
+export async function fetchProductsNumber() {
+  const { products_aggregate } = await useGraphQL<{
+    products_aggregate: { aggregate: { count: number } }
+  }>(
+    `
+    query getProductsNumber {
+      products_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  `
+  )
+
+  return products_aggregate.aggregate.count
 }

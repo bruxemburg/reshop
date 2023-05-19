@@ -1,5 +1,9 @@
 import type { Theme } from 'unocss/preset-uno'
-import { defineConfig, transformerDirectives, transformerVariantGroup } from 'unocss'
+import {
+  defineConfig,
+  transformerDirectives,
+  transformerVariantGroup
+} from 'unocss'
 
 import uno from 'unocss/preset-uno'
 import icons from 'unocss/preset-icons'
@@ -14,42 +18,52 @@ export default defineConfig<Theme>({
     // https://github.com/unocss/unocss/tree/main/packages/preset-icons
     icons({
       extraProperties: {
-        'display': 'inline-block',
+        display: 'inline-block',
         'vertical-align': 'middle',
-        'align-self': 'center',
-      },
-    }),
+        'align-self': 'center'
+      }
+    })
   ],
   theme: {
     fontFamily: {
-      sans: ['"Pretendard Std Variable"', '"Pretendard Std"', theme.fontFamily.sans].join(','),
-    },
+      sans: [
+        '"Pretendard Std Variable"',
+        '"Pretendard Std"',
+        theme.fontFamily.sans
+      ].join(',')
+    }
   } as Theme,
   transformers: [
     // https://github.com/unocss/unocss/tree/main/packages/transformer-directives
     transformerDirectives(),
 
     // https://github.com/unocss/unocss/tree/main/packages/transformer-variant-group
-    transformerVariantGroup(),
+    transformerVariantGroup()
   ],
   shortcuts: [
     // flex-center => flex items-center justify-center
     [/^flex-(start|end|center)$/, ([, p]) => `flex items-${p} justify-${p}`],
 
     // gap-8 => gap-8 supports-[not_(gap:calc(8rem/4))]:sibling:children:m, literally for wider support
-    [/^gap?(.*-)(\d+)$/, ([, p, v]) => {
-      const axis = p.replaceAll('-', '')
-      const supports = `supports-[not_(gap:calc(${v}rem/4))]:sibling:children:m`
+    [
+      /^gap?(.*-)(\d+)$/,
+      ([, p, v]) => {
+        const axis = p.replaceAll('-', '')
+        const supports = `supports-[not_(gap:calc(${v}rem/4))]:sibling:children:m`
 
-      const rule = axis === ''
-        ? `${supports}l-${v} ${supports}t-${v}`
-        : axis === 'x' ? `${supports}l-${v}` : `${supports}t-${v}`
+        const rule =
+          axis === ''
+            ? `${supports}l-${v} ${supports}t-${v}`
+            : axis === 'x'
+            ? `${supports}l-${v}`
+            : `${supports}t-${v}`
 
-      return `gap${axis === '' ? '' : `-${axis}`}-${v} ${rule}`
-    }],
+        return `gap${axis === '' ? '' : `-${axis}`}-${v} ${rule}`
+      }
+    ],
 
     // wh-5 => w-5 h-5
-    [/^wh-(.+)$/, ([, v]) => `w-${v} h-${v}`],
+    [/^wh-(.+)$/, ([, v]) => `w-${v} h-${v}`]
   ],
   preflights: [
     // custom font family
@@ -57,11 +71,9 @@ export default defineConfig<Theme>({
     {
       getCSS: ({ generator: { userConfig }, theme }) => `
         html {
-          font-family: ${
-            (userConfig.theme ?? theme).fontFamily?.sans
-          };
+          font-family: ${(userConfig.theme ?? theme).fontFamily?.sans};
         }
-      `,
-    },
-  ],
+      `
+    }
+  ]
 })
