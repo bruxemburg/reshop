@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { type Product, fetchProducts, fetchProductsNumber } from '~/services/products'
+import { type Product, fetchProducts, fetchProductsCount } from '~/services/products'
 
-const directus_assets_endpoint = import.meta.env.PUBLIC_DIRECTUS_ASSETS_ENDPOINT
+const DIRECTUS_ASSETS_ENDPOINT = import.meta.env.PUBLIC_DIRECTUS_ASSETS_ENDPOINT
 
 const products = ref<Product[]>([])
-const products_number = await fetchProductsNumber()
-const products_per_page = 8
-const current_page = ref(1)
-const pages_number = Math.ceil(products_number / products_per_page)
+const count = await fetchProductsCount()
+const perPage = 8
+const currentPage = ref(1)
+const pages = Math.ceil(count / perPage)
 
-const load_new_page = async (page_number: number) => {
-  current_page.value = page_number
-  const offset = (page_number - 1) * products_per_page
-  products.value = await fetchProducts(products_per_page, offset)
+const paginate = async (page: number) => {
+  currentPage.value = page
+  const offset = (page - 1) * perPage
+  products.value = await fetchProducts(perPage, offset)
 }
-load_new_page(current_page.value)
+paginate(currentPage.value)
 </script>
 
 <template>
@@ -70,7 +70,7 @@ load_new_page(current_page.value)
         <a :href="`/products/${ product.id }`">
           <img
             class="hover:grow hover:shadow-lg"
-            :src="`${ directus_assets_endpoint }/${ product.thumbnail }`"
+            :src="`${ DIRECTUS_ASSETS_ENDPOINT }/${ product.thumbnail }`"
             :alt="product.name"
           />
           <div class="pt-3 flex items-center justify-between">
@@ -92,22 +92,22 @@ load_new_page(current_page.value)
       <div class="w-full flex justify-center">
         <div class="flex rounded-md mt-8">
           <a
-            v-if="current_page > 1"
-            @click="load_new_page(current_page - 1)"
+            v-if="currentPage > 1"
+            @click="paginate(currentPage - 1)"
             class="py-2 px-4 underline-offset-2 cursor-pointer border-black border-r-1 hover:underline"
           >
             Previous
           </a>
           <a
-            v-for="page_number in pages_number"
-            @click="load_new_page(page_number)"
-            :class="`py-2 px-4 underline-offset-2 cursor-pointer border-black hover:underline ${ page_number === pages_number ? '' : 'border-r-1' } ${ page_number === current_page ? 'underline' : '' }`"
+            v-for="page in pages"
+            @click="paginate(page)"
+            :class="`py-2 px-4 underline-offset-2 cursor-pointer border-black hover:underline ${ page === pages ? '' : 'border-r-1' } ${ page === currentPage ? 'underline' : '' }`"
           >
-            {{ page_number }}
+            {{ page }}
           </a>
           <a
-            v-if="current_page < pages_number"
-            @click="load_new_page(current_page + 1)"
+            v-if="currentPage < pages"
+            @click="paginate(currentPage + 1)"
             class="py-2 px-4 underline-offset-2 cursor-pointer border-black border-l-1 hover:underline"
           >
             Next
