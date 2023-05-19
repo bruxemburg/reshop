@@ -1,0 +1,3 @@
+-- creates a directus admin role and a user with specific id
+INSERT INTO directus_roles (id, name, icon, description, enforce_tfa, admin_access, app_access) VALUES ('d697f362-8269-41a6-b742-64fa136da309', 'Administrator', 'verified', '$t:admin_description', false, true, true);
+INSERT INTO directus_users (id, first_name, last_name, email, password, theme, status, role, provider, email_notifications) VALUES ('8ed52acc-6c3d-4a42-acac-fb9cc5cd25a3', 'Admin', 'User', 'admin@example.com', '$argon2id$v=19$m=65536,t=3,p=4$QuzmRLO64ivhUBViLGXlww$xdCJjYirHvmQ8xr5BpaH+RzH9cbYRvmoaBsMD8/RnG0', 'auto', 'active', 'd697f362-8269-41a6-b742-64fa136da309', 'default', true);
