@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   postgres:
@@ -46,13 +46,13 @@ services:
       - -c
       - |
         node /directus/cli.js bootstrap --skipAdminInit &&
-        node /directus/cli.js schema apply --yes /directus/snapshots/$(ls -Art /directus/snapshots/ | tail -n 1) &&
+        node /directus/cli.js schema apply --yes /directus/snapshots/$$(ls -Art /directus/snapshots/ | tail -n 1) &&
         node /directus/cli.js start
     environment:
       PUBLIC_URL: http://localhost:8055
       DB_CLIENT: pg
       DB_PORT: 5432
-      CACHE_ENABLED: "true"
+      CACHE_ENABLED: 'true'
       CACHE_STORE: redis
       CACHE_REDIS: redis://cache:6379
     env_file:
@@ -93,8 +93,8 @@ services:
       PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
       HASURA_GRAPHQL_ADMIN_SECRET: xxx
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
-      HASURA_GRAPHQL_DEV_MODE: "true" # set to "false" when deploying to production
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
+      HASURA_GRAPHQL_DEV_MODE: 'true' # set to "false" when deploying to production
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
     restart: unless-stopped
     healthcheck:
