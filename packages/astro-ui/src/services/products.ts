@@ -115,7 +115,7 @@ export async function fetchProducts(limit: number, offset: number) {
   return products
 }
 
-export async function fetchProductsNumber() {
+export async function fetchProductsCount() {
   const { products_aggregate } = await useGraphQL<{
     products_aggregate: { aggregate: { count: number } }
   }>(

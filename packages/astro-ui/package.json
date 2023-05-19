@@ -9,7 +9,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prettify": "prettier --write .",
+    "prettify:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/node": "^5.1.3",
