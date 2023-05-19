@@ -1,0 +1,162 @@
+---
+import DefaultLayout from '~/layout/Default.astro'
+import Breadcrumbs from '~/components/Breadcrumbs.astro'
+import Rating from '~/components/Rating.astro'
+import DT from '~/components/description-list/Term.astro'
+import DD from '~/components/description-list/Description.astro'
+
+import { type Product, fetchProductById } from '~/services/products'
+
+const { id } = Astro.params
+
+let product: Product | null
+try {
+  product = await fetchProductById(id ?? '')
+}
+catch (error) {
+  console.error(error)
+
+  return new Response(null, {
+    status: 500,
+    statusText: 'Internal Server Error',
+  })
+}
+
+if (!product) {
+  // Astro.redirect('/404')
+  return new Response('Product was not found', {
+    status: 404,
+    statusText: 'Not Found',
+  })
+}
+
+const { products_files: images, thumbnail } = product
+---
+
+<DefaultLayout title="Product Details">
+  <Breadcrumbs />
+
+  <div class="grid gap-x-4 md:(grid-cols-2 gap-y-12)">
+    <!-- Product pictures -->
+    <div class="grid gap-2 lg:gap-4">
+      <img
+        class="min-h-full w-full rounded-lg object-cover"
+        src={ `${import.meta.env.PUBLIC_DIRECTUS_ASSETS_ENDPOINT}/${thumbnail}` }
+        alt={ product.name }
+      />
+      <div class="grid grid-cols-5 gap-2 lg:gap-4">
+        {
+          images.map(({ directus_file: { id, filename_download } }) => (
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src={ `${import.meta.env.PUBLIC_DIRECTUS_ASSETS_ENDPOINT}/${id}` }
+              alt={ filename_download }
+            />
+          ))
+        }
+      </div>
+    </div>
+
+    <section class="py-8 md:px-4 lg:py-8">
+      <h2 class="mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-light-100">{ product.name }</h2>
+      <p class="mb-4 text-xl font-extrabold leading-none text-gray-900 md:text-2xl dark:text-light-100">{ (new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' })).format(product.price) }</p>
+      <dl>
+        <DT>Details</DT>
+        <DD>{ product.description }</DD>
+      </dl>
+      <dl class="flex items-center space-x-6">
+        <div>
+          <DT>Category</DT>
+          <DD>Electronics/PC</DD>
+        </div>
+        <div>
+          <DT>Item weight</DT>
+          <DD>12kg</DD>
+        </div>
+        <div>
+          <DT>SKU</DT>
+          <DD>CW21001</DD>
+        </div>
+      </dl>
+      <dl>
+        <DT>Rating</DT>
+        <dd>
+          <Rating value={ 4.95 }>
+            <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400"><span class="font-bold text-gray-900">4.95</span> out of 5</p>
+            <span class="wh-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+            <a href="#reviews" class="text-sm font-medium text-gray-500 dark:text-gray-400 underline hover:(no-underline text-gray-900 dark:text-light-100)">73 reviews</a>
+          </Rating>
+        </dd>
+      </dl>
+
+      <div class="w-full mt-4 inline-flex rounded-md children:w-1/2" role="group">
+        <label>
+          <input type="number" class="bg-gray-50 border border-gray-900 text-gray-900 placeholder-gray-500 text-sm rounded-l-lg focus:(z-10 ring-2 ring-gray-500) block w-full py-2.5 px-4 dark:(bg-gray-700 border-light-100 placeholder-gray-400 text-light-100)" placeholder="Quantity" min="1" required>
+        </label>
+        <button type="button" class="px-4 py-2 text-sm font-medium flex-center space-x-2 bg-gray-900 text-light-100 border border-gray-900 rounded-r-lg hover:bg-gray-800 focus:(z-10 ring-2 ring-gray-500) dark:(bg-light-100 text-gray-900 border-light-100 hover:bg-light-200)">
+          <span class="text-xl i-ph-shopping-cart" aria-hidden="true" />
+          <span>Add to cart</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="reviews" class="md:col-span-2">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-light-100">Reviews</h2>
+        <span class="bg-blue-100 text-blue-800 text-sm font-semibold flex-center wh-8 rounded-full dark:bg-gray-700 dark:text-blue-400">
+          <span>
+            { (new Intl.NumberFormat(undefined, { notation: 'compact' }))
+              .format(product.reviews_aggregate.aggregate.count) }
+          </span>
+          <span class="sr-only">Total reviews count</span>
+        </span>
+      </div>
+
+      <!-- Review -->
+      <form class="mb-6">
+        <Rating readonly={ false }>
+          <p class="ml-2 text-sm text-gray-500 dark:text-gray-400 after:(content-['_*'] text-red-500 dark:text-red-400)">Rank the product</p>
+        </Rating>
+
+        <div class="relative py-2.5 px-4 mb-4 bg-light-100 rounded-lg border border-gray-200 dark:(bg-gray-800 border-gray-700)">
+          <textarea
+            id="review"
+            rows="6"
+            placeholder=" "
+            class="px-0 w-full text-sm text-gray-900 bg-transparent border-0 focus:ring-0 dark:(text-light-100 bg-gray-800) peer"
+            required
+          />
+          <label for="review" class="absolute inset-y-2.5 inset-x-4 peer-not-placeholder-shown:hidden text-sm text-gray-500 dark:text-gray-400 after:(content-['_*'] text-red-500 dark:text-red-400)">Write a review...</label>
+        </div>
+        <button type="submit" class="inline-flex items-center space-x-2 py-2.5 px-4 text-sm font-medium text-center text-light-100 bg-gray-900 rounded-lg focus:(ring-4 ring-gray-500) hover:bg-gray-800 dark:(bg-light-100 text-gray-900 hover:bg-light-200)">
+          <span class="i-ph-chat-text text-xl" aria-hidden="true" />
+          <span>Add review</span>
+        </button>
+      </form>
+
+      <!-- List reviews -->
+      <article class="p-6 mb-6 text-base bg-light-100 rounded-lg dark:bg-gray-900">
+        <footer class="flex justify-between items-center mb-2">
+          <Rating value={ 4 }>
+            <p class="ml-2 text-sm text-gray-500 dark:text-gray-400">Reviewed in the United Kingdom on <time datetime="2017-03-03 19:00">March 3, 2017</time></p>
+          </Rating>
+        </footer>
+        <div class="space-y-2">
+          <p>
+            This is my third Invicta Pro Diver. They are just fantastic value for money. This one arrived yesterday and the first thing I did was set the time, popped on an identical strap from another Invicta and went in the shower with it to test the waterproofing.... No problems.
+          </p>
+          <p>
+            It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.
+          </p>
+        </div>
+        <div class="flex items-center mt-4 space-x-4">
+          <a href="/" class="text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+            Report abuse
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Maybe related products section -->
+  </div>
+</DefaultLayout>

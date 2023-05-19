@@ -28,35 +28,46 @@ Reshop is an e-commerce platform built under extreme constraints just for sake o
 Bellow we describe the process of running the application locally.
 
 ### Prerequisites
- - [Docker](https://www.docker.com/)
- - [`docker-compose`](https://docs.docker.com/compose/)
- - [Hasura CLI](https://github.com/hasura/graphql-engine/releases)
+
+- [Docker](https://www.docker.com/)
+- [`docker-compose`](https://docs.docker.com/compose/)
+- [Hasura CLI](https://github.com/hasura/graphql-engine/releases)
 
 ### Setting up
+
 1. Create the copy of `.env.example` file
 1. Rename it to `.env`, i.e.
-    ```diff
-    + .env
-    - .env.example Copy
-    ```
+   ```diff
+   + .env
+   - .env.example Copy
+   ```
 1. Put valid values into `.env`, i.e.
-    ```diff
-    # unique identifier for the project
-    + KEY=SECRET
-    - KEY= 
-    ```
+   ```diff
+   # unique identifier for the project
+   + KEY=SECRET
+   - KEY=
+   ```
 1. Do above step for each `package` under `packages/` directory
 
 ### Running
-1. `docker-compose up -d` - to run Directus and Redis Cache
-1. Go to Directus container CLI and use `npx directus schema apply --yes ./snapshots/[name].yaml` to apply some schema
-1. `hasura console` - to run Hasura locally
-1. For more follow [Hasura CLI guide](https://hasura.io/docs/latest/hasura-cli/commands/index/)
+
+1. Run `docker-compose up` from the root of the project, which will start DBs, Directus, and Hasura services
+1. Apply data seeds via hasura cli:
+   1. Go to the hasura directory `cd ./packages/hasura-graphql`
+   1. Apply whatever seeds you need: `hasura seed apply --file [seed_file]` (if you are planning to use directus admin pannel, please apply `directus_admin_user` and the latest `directus_metadata` seeds, and if you want to test FE you may also apply the latest `shop_data` seed)
+1. Run `pnpm run dev` in the `cd ./packages/astro-ui` directory to start the Astro FE server.
+1. Go to the `http://0.0.0.0:8080/console` to open the Hasura console
+1. Go to the `http://0.0.0.0:8055` to open the Directus admin pannel
+1. Go to the `http://0.0.0.0:3000` to see the FE
 
 ### Stopping
-1. `docker-compose down` - to stop Docker containers use `--volumes` to wipe the database
+
+1. Before make sure you've created Directus snapshot of your changes `npx directus schema snapshot --yes ./snapshots/[name].yaml`
+1. Make sure you've exported Directus metadata (such as file uploads etc.) by `hasura seed create directus_metadata_seed --from-table directus_presets --from-table directus_files --from-table directus_permissions --from-table directus_folders --from-table directus_settings` or `hasura seed create shop_data_seed --from-table categories --from-table products --from-table products_files --from-table users --from-table reviews --from-table orders --from-table order_lines`
+1. `docker-compose down` - to stop Docker containers, you might also use `--volumes` to wipe the database data
 
 ## Features
+
 - :cloud: [Hasura Cloud](https://hasura.io/)
 - :rabbit2: [Directus](https://directus.io/)
 - :zap: [Redis Cache](https://redis.io/)
@@ -88,4 +99,5 @@ Bellow we describe the process of running the application locally.
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
+
 MIT

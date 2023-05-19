@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "@antfu/eslint-config-ts",
+    "plugin:astro/recommended",
+    "plugin:astro/jsx-a11y-strict",
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      }
+    }
+  ],
+  "rules": {
+    "astro/semi": ["error", "never"],
+    "astro/no-set-text-directive": "error",
+    "astro/prefer-class-list-directive": "error",
+    "astro/prefer-object-class-list": "error"
+  }
+}

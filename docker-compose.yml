@@ -8,40 +8,46 @@ services:
       - db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
-    restart: always
-
-  hasura:
-    container_name: hasura-graphql-engine
-    image: hasura/graphql-engine:latest.cli-migrations-v3
-    ports:
-      - 8080:8080
-    volumes:
-      - ./packages/hasura-graphql/metadata:/hasura-metadata
-      - ./packages/hasura-graphql/migrations:/hasura-migrations
-    depends_on:
-    - postgres
-    environment:
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
-      PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres 
-      HASURA_GRAPHQL_ADMIN_SECRET: xxx
-    restart: always
+    restart: unless-stopped
+    healthcheck:
+      test: pg_isready -d postgres://postgres:password@postgres:5432/postgres
+      start_period: 16s
+      interval: 8s
+      timeout: 8s
+      retries: 4
 
   cache:
     container_name: redis-cache
     image: redis:alpine
+    restart: unless-stopped
+    healthcheck:
+      test: redis-cli --raw incr ping
+      start_period: 16s
+      interval: 8s
+      timeout: 8s
+      retries: 4
 
   directus:
     container_name: directus-cms
     image: directus/directus:latest
+    user: root
     ports:
       - 8055:8055
     volumes:
       - ./packages/directus-cms/uploads:/directus/uploads
       - ./packages/directus-cms/snapshots:/directus/snapshots
     depends_on:
-      - cache
-      - postgres
-    # TODO: apply schema automatically
+      cache:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    command:
+      - /bin/sh
+      - -c
+      - |
+        node /directus/cli.js bootstrap --skipAdminInit &&
+        node /directus/cli.js schema apply --yes /directus/snapshots/$$(ls -Art /directus/snapshots/ | tail -n 1) &&
+        node /directus/cli.js start
     environment:
       PUBLIC_URL: http://localhost:8055
       DB_CLIENT: pg
@@ -52,6 +58,81 @@ services:
     env_file:
       - ./packages/directus-cms/.env
     restart: unless-stopped
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8055/server/health || exit 1
+      start_period: 16s
+      interval: 8s
+      timeout: 8s
+      retries: 4
+
+  hasura:
+    container_name: hasura-graphql-engine
+    image: hasura/graphql-engine:latest.cli-migrations-v3
+    ports:
+      - 8080:8080
+    volumes:
+      - ./packages/hasura-graphql/metadata:/hasura-metadata
+    depends_on:
+      postgres:
+        condition: service_healthy
+      directus:
+        condition: service_healthy
+    # TODO: create the admin user (with the specific id) automatically
+    # command:
+    #   [
+    #     "hasura-cli",
+    #     "seed",
+    #     "apply",
+    #     "-f",
+    #     "1683529398822_directus_admin_user.sql",
+    #     "--endpoint",
+    #     "http://localhost:8080",
+    #   ]
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      HASURA_GRAPHQL_ADMIN_SECRET: xxx
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
+      HASURA_GRAPHQL_DEV_MODE: 'true' # set to "false" when deploying to production
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+    restart: unless-stopped
+    healthcheck:
+      test: curl -f http://localhost:8080/healthz || exit 1
+      start_period: 16s
+      interval: 8s
+      timeout: 8s
+      retries: 4
+
+  # astro:
+  #   container_name: astro-ui
+  #   build: ./packages/astro-ui
+  #   ports:
+  #     - 3000:3000
+  #   restart: unless-stopped
+  #   depends_on:
+  #     hasura:
+  #       condition: service_healthy
+
+  # TODO: changge the way astro-ui works in the dev environment
+  # astro:
+  #   container_name: astro-ui
+  #   image: node:lts-alpine
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./packages/astro-ui:/astro-ui
+  #   command:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       cd /astro-ui &&
+  #       npm i &&
+  #       npm run dev
+  #   environment:
+  #     HOST: 0.0.0.0
+  #     PORT: 3000
+  #   restart: unless-stopped
 
 volumes:
   db-data:
